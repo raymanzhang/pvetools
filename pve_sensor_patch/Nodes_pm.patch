@@ -1,0 +1,15 @@
+--- Nodes.pmbak	2023-02-21 17:05:58.513291140 +0800
++++ Nodes.pm	2023-02-21 17:17:03.987988261 +0800
+@@ -403,6 +403,12 @@
+ 	$res->{pveversion} = PVE::pvecfg::package() . "/" .
+ 	    PVE::pvecfg::version_text();
+ 
++$res->{sensors_json} = `sensors -j`; # 获取 CPU 、主板温度及风扇转速
++$res->{smartctl_nvme_json} = `smartctl -a -j /dev/nvme?`; # 读取 nvme 硬盘 S.M.A.R.T. 值，获取硬盘寿命、容量、温度等
++$res->{smartctl_sda_json} = `smartctl -i -n standby /dev/sda|grep "STANDBY" || smartctl -i -n standby /dev/sda|grep "No such device" || smartctl -a -j /dev/sda`; #先检测硬盘是否为休眠状态，若否，则检查磁盘是否存在，若否，则返回 S.M.A.R.T. 值
++$res->{smartctl_sdb_json} = `smartctl -i -n standby /dev/sdb|grep "STANDBY" || smartctl -i -n standby /dev/sdb|grep "No such device" || smartctl -a -j /dev/sdb`; #先检测硬盘是否为休眠状态，若否，则检查磁盘是否存在，若否，则返回 S.M.A.R.T. 值
++$res->{cpusensors} = `lscpu | grep MHz`; # 读取 CPU 频率
++
+ 	my $dinfo = df('/', 1);     # output is bytes
+ 
+ 	$res->{rootfs} = {
