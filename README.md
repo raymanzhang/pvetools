@@ -30,8 +30,7 @@ cd pvetools
 ### 一键无脑安装:
 
 ```
-echo "nameserver  8.8.8.8" >> /etc/resolv.conf && rm /etc/apt/sources.list.d/pve-enterprise.list && export LC_ALL=en_US.UTF-8 && apt update && apt -y install git && git clone https://github.com/ivanhao/pvetools.git && cd pvetools && ./pvetools.sh
-
+echo "nameserver  8.8.8.8" >> /etc/resolv.conf && rm -rf pvetools && rm -rf /etc/apt/sources.list.d/pve-enterprise.list && export LC_ALL=en_US.UTF-8 && apt update && apt -y install git && git clone https://github.com/ivanhao/pvetools.git && echo "cd /root/pvetools && ./pvetools.sh" > pvetools/pvetools && chmod +x pvetools/pvetools* && ln -s /root/pvetools/pvetools /usr/local/bin/pvetools && pvetools
 ```
 
 ###### 方式二：下载zip安装
@@ -137,6 +136,26 @@ zm （来源qq）
 **锐 (来源支付宝)
 
 # [版本说明]
+
+##### v2.4.0
+
+发布时间：2024.02.08
+
+new feature:
+
+* 修复有些功能还原配置时出现问题，比如温度显示，去除订阅等
+
+* 修复配置apt国内源、安装配置VIM可导致原配置文件被覆盖
+
+##### v2.3.9
+
+发布时间：2023.10.19
+
+new feature:
+
+* 增加pve8的支持
+
+* 优化英文语言的显示
 
 ##### v2.3.6
 
