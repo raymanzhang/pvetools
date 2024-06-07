@@ -1,15 +1,15 @@
---- pvemanagerlib.jsbak	2023-02-21 17:05:58.521291989 +0800
-+++ pvemanagerlib.js	2023-02-21 17:13:19.830229094 +0800
-@@ -38716,7 +38716,7 @@
+--- /usr/share/pve-manager/js/pvemanagerlib.jsbak	2024-06-05 13:59:31.883423670 +0800
++++ /usr/share/pve-manager/js/pvemanagerlib.js	2024-06-07 09:20:45.566087278 +0800
+@@ -44998,7 +44998,7 @@
      extend: 'Proxmox.panel.StatusView',
      alias: 'widget.pveNodeStatus',
  
--    height: 300,
-+    height: 450,
+-    height: 350,
++    height: 600,
      bodyPadding: '15 5 15 5',
  
      layout: {
-@@ -38827,6 +38827,133 @@
+@@ -45133,6 +45133,152 @@
  	    textField: 'pveversion',
  	    value: '',
  	},
@@ -58,6 +58,24 @@
 +		} else {
 +			return `提示: CPU 及 主板 温度读取异常`;
 +		}
++	}
++},
++{
++	itemId: 'mlx',
++        colspan: 2,
++        printBar: false,
++        title: gettext('网卡'), 
++        textField: 'sensors_json',
++        renderer: function(value) {
++                value = value.replace(/temp([0-9]{1,})_input/g,'input');
++		if (value.indexOf("mlx5-pci") != -1 ) {
++                        value = value.replace(/mlx5-pci-(.{4})/g,'mlx-pci');
++                        value = JSON.parse(value);
++                        try { var mlx='MLX: ' + value['mlx-pci']['sensor0']['input'].toFixed(1)+'°C'; } catch(e) {var mlx = 'MLX 温度读取异常';}
++                        return `${mlx}`;
++                } else {
++			return `MLX网卡没有安装`;
++		} 
 +	}
 +},
 +{		
@@ -134,10 +152,11 @@
 +	title: gettext('CPU频率'),
 +	textField: 'cpusensors',
 +	renderer:function(value){
-+		var f0 = value.match(/CPU MHz.*?([\d]+)/)[1];
-+		var f1 = value.match(/CPU min MHz.*?([\d]+)/)[1];
-+		var f2 = value.match(/CPU max MHz.*?([\d]+)/)[1];
-+		return `实时: ${f0} MHz || 最小: ${f1} MHz | 最大: ${f2} MHz `
++		var f0 = value.match(/scaling MHz:.*?([\d]+)/)[1];
++		var f1 = value.match(/CPU min MHz:.*?([\d]+)/)[1];
++		var f2 = value.match(/CPU max MHz:.*?([\d]+)/)[1];
++		var f4 = parseInt(f0)*parseInt(f2)/100;
++		return `实时: ${f4} MHz || 最小: ${f1} MHz | 最大: ${f2} MHz `
 +	}
 +},
      ],

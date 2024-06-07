@@ -1,6 +1,6 @@
---- Nodes.pmbak	2023-02-21 17:05:58.513291140 +0800
-+++ Nodes.pm	2023-02-21 17:17:03.987988261 +0800
-@@ -403,6 +403,12 @@
+--- /usr/share/perl5/PVE/API2/Nodes.pmbak	2024-06-05 13:59:31.883423670 +0800
++++ /usr/share/perl5/PVE/API2/Nodes.pm	2024-06-05 13:59:31.895423722 +0800
+@@ -486,6 +486,12 @@
  	$res->{pveversion} = PVE::pvecfg::package() . "/" .
  	    PVE::pvecfg::version_text();
  

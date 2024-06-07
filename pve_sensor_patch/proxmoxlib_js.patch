@@ -1,6 +1,6 @@
---- /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.jsbak	2023-02-21 21:09:18.972021064 +0800
-+++ /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js	2023-02-21 21:09:18.980021077 +0800
-@@ -518,18 +518,7 @@
+--- /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.jsbak	2024-06-05 13:59:31.879423652 +0800
++++ /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js	2024-06-05 13:59:31.891423704 +0800
+@@ -562,18 +562,7 @@
  		    let res = response.result;
  		    if (res === null || res === undefined || !res || res
  			.data.status.toLowerCase() !== 'active') {
@@ -19,7 +19,7 @@
  		    } else {
  			orig_cmd();
  		    }
-@@ -15642,7 +15631,7 @@
+@@ -18946,7 +18935,7 @@
  	    failure: (response, opts) => Ext.Msg.alert(gettext('Error'), response.htmlStatus),
  	    success: function(response, opts) {
  		const res = response.result;
